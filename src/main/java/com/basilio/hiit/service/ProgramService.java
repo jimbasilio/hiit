@@ -2,6 +2,7 @@ package com.basilio.hiit.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.basilio.hiit.dto.ProgramDTO;
 import com.basilio.hiit.entity.ProgramEntity;
@@ -12,17 +13,25 @@ public class ProgramService {
     @Autowired
     private ProgramRepository programRepo;
 
+    @Transactional(readOnly = true)
     public ProgramDTO getById(Long id) {
         return new ProgramDTO(programRepo.findOne(id));
     }
 
+    @Transactional(readOnly = false)
     public Long store(ProgramDTO toStore) {
-        ProgramEntity entityToStore = programRepo.findOne(toStore.getId());
-        entityToStore.setDurationInSeconds(toStore.getDurationInSeconds());
-        entityToStore.setIterations(toStore.getIterations());
-        entityToStore.setVersion(toStore.getVersion());
+        ProgramEntity entity = null;
+        if (toStore.isValidId()) {
+            entity = programRepo.findOne(toStore.getId());
+        } else {
+            entity = new ProgramEntity();
+        }
 
-        ProgramEntity stored = programRepo.save(entityToStore);
+        entity.setDurationInSeconds(toStore.getDurationInSeconds());
+        entity.setIterations(toStore.getIterations());
+        entity.setVersion(toStore.getVersion());
+
+        ProgramEntity stored = programRepo.save(entity);
 
         // TODO does this make a db call or is it returned from spring data?
         return stored.getId();
