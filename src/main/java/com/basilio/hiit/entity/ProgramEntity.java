@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
-@Table(name = "Entity")
+@Table(name = "Program")
 @Entity
 public class ProgramEntity {
     @Id

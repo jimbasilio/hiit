@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="stylesheet" type="text/css" href="js/bower_components/bootstrap/dist/css/bootstrap.min.css"></script>
+<link rel="stylesheet" type="text/css" href="js/bower_components/bootstrap/dist/css/bootstrap-theme.min.css"></script>
+<link rel="stylesheet" type="text/css" href="js/bower_components/font-awesome/css/font-awesome.min.css"></script>
+<link rel="stylesheet" type="text/css" href="css/hiit.css"></script>
+
+
+<script src="js/bower_components/angular/angular.js"></script>
+<script src="js/bower_components/angular-route/angular-route.min.js"></script>
+<script src="js/bower_components/jquery/dist/jquery.js"></script>
+<script src="js/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script src="js/angular_components/hiit.js"></script>
+<script src="js/angular_components/controllers/AboutController.js"></script>
+<script src="js/angular_components/controllers/ContactController.js"></script>
+<script src="js/angular_components/controllers/MainController.js"></script>
+<script src="js/angular_components/controllers/ProgramController.js"></script>
+
+
+
+<meta charset="UTF-8">
+<title>The Angular App</title>
+</head>
+<body data-ng-app="hiit" data-ng-controller="MainController">
+
+	<!-- HEADER AND NAVBAR -->
+	<header>
+		<nav class="navbar navbar-default">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/">HIIT IT!</a>
+			</div>
+
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+				<li><a href="#program"><i class="fa fa-save"></i> Programs</a></li>
+				<li><a href="#about"><i class="fa fa-shield"></i> About</a></li>
+				<li><a href="#contact"><i class="fa fa-comment"></i> Contact</a></li>
+			</ul>
+		</div>
+		</nav>
+	</header>
+
+	<div class="col-md-12">
+	    <div ng-view>
+	    </div>
+	</div>
+</body>
+</html>
