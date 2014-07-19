@@ -1,4 +1,8 @@
-HIIT Timer Application.
+HIIT (High Intensity Interval Training) Timer Application.
+
+HIIT Timer will have an angular front-end for saving/loading HIIT programs.  
+Programs will be able to have X intervals for Y seconds each with Z groupings of intervals.
+The UI will be HTML5 and have offline capabilities to be able to run without connectivity to the network.  When connectivity is reestablished any changes made should be able to be saved to the cloud.  
 
 MUST PASS ARGUMENT TO JVM TO SELECT ACTIVE PROFILE:
 user@machine:~/your/projects$ mvn clean package
@@ -8,15 +12,12 @@ user@machine:~/your/projects$ java -Dspring.profiles.active=dev -jar target/spri
 Todo:
 * MVC integration tests
 * protractor tests
-* jUnit tests
-* automatically run bower install on maven build
-    * soon
     
 Done:
-* MVC JSON RPC
-    * works
+* MVC JSON RPC skeleton
 * have multiple profiles for 2 different database providers (HSQL and H2)
     * works now.  can set profile at will in application.properties to use h2db or hsqldb independant of dev/prod setting.
+* simple angular shell front-end.. works but no frills yet!
 
 
 NOTES: 
