@@ -62,7 +62,7 @@
 		<profile>
 			<id>m2e</id>
 			<activation>
-				<property>
+				<property>  
 					<name>m2e.version</name>
 				</property>
 			</activation>
@@ -109,7 +109,7 @@
 					<arguments>
 						<argument>install</argument>
 					</arguments>
-					<workingDirectory>src/main/resources</workingDirectory>
+					<workingDirectory>src/main/resources/static/js</workingDirectory>
 				</configuration>
 			</plugin>
 		</plugins>

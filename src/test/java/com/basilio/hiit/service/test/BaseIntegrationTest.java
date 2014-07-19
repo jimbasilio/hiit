@@ -12,6 +12,6 @@ import com.basilio.hiit.Application;
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
-public class BaseIntegrationTest {
+public abstract class BaseIntegrationTest {
 
 }
