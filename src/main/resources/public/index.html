@@ -2,10 +2,14 @@
 <html>
 <head>
 
-<link rel="stylesheet" type="text/css" href="js/bower_components/bootstrap/dist/css/bootstrap.min.css"></script>
-<link rel="stylesheet" type="text/css" href="js/bower_components/bootstrap/dist/css/bootstrap-theme.min.css"></script>
-<link rel="stylesheet" type="text/css" href="js/bower_components/font-awesome/css/font-awesome.min.css"></script>
-<link rel="stylesheet" type="text/css" href="css/hiit.css"></script>
+<link rel="stylesheet" type="text/css" href="js/bower_components/bootstrap/dist/css/bootstrap.min.css">
+</script>
+<link rel="stylesheet" type="text/css" href="js/bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+</script>
+<link rel="stylesheet" type="text/css" href="js/bower_components/font-awesome/css/font-awesome.min.css">
+</script>
+<link rel="stylesheet" type="text/css" href="css/hiit.css">
+</script>
 
 
 <script src="js/bower_components/angular/angular.js"></script>
@@ -19,34 +23,78 @@
 <script src="js/angular_components/controllers/MainController.js"></script>
 <script src="js/angular_components/controllers/ProgramController.js"></script>
 
+ 
+<script type="text/javascript">
 
+  function signinCallback(authResult) {
+      debugger;
+    if (authResult['status']['signed_in']) {
+      // Update the app to reflect a signed in user
+      // Hide the sign-in button now that the user is authorized, for example:
+      document.getElementById('signinButton').setAttribute('style', 'display: none');
+    } else {
+      // Update the app to reflect a signed out user
+      // Possible error values:
+      //   "user_signed_out" - User is signed-out
+      //   "access_denied" - User denied access to your app
+      //   "immediate_failed" - Could not automatically log in the user
+      console.log('Sign-in state: ' + authResult['error']);
+    }
+  }
+</script>
 
 <meta charset="UTF-8">
 <title>The Angular App</title>
 </head>
 <body data-ng-app="hiit" data-ng-controller="MainController">
 
-	<!-- HEADER AND NAVBAR -->
-	<header>
-		<nav class="navbar navbar-default">
-		<div class="container">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="/">HIIT IT!</a>
-			</div>
+  <!-- HEADER AND NAVBAR -->
+  <header>
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">HIIT IT!</a>
+        </div>
 
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#"><i class="fa fa-home"></i> Home</a></li>
-				<li><a href="#program"><i class="fa fa-save"></i> Programs</a></li>
-				<li><a href="#about"><i class="fa fa-shield"></i> About</a></li>
-				<li><a href="#contact"><i class="fa fa-comment"></i> Contact</a></li>
-			</ul>
-		</div>
-		</nav>
-	</header>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+          <li><a href="#program"><i class="fa fa-save"></i> Programs</a></li>
+          <li><a href="#about"><i class="fa fa-shield"></i> About</a></li>
+          <li><a href="#contact"><i class="fa fa-comment"></i> Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
 
-	<div class="col-md-12">
-	    <div ng-view>
-	    </div>
-	</div>
+  <div class="col-md-12">
+    <span id="signinButton"> 
+      <span class="g-signin" 
+            data-callback="signinCallback" 
+            data-clientid="61500060365-alek9hn53hlc158pbaiiuf2jaanckb9d.apps.googleusercontent.com"
+            data-cookiepolicy="single_host_origin" 
+            data-requestvisibleactions="http://schema.org/AddAction"
+            data-scope="https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/userinfo.email"> </span>
+            <!-- the following will get me, my friends, and access to my circles -->
+<!--             data-scope="https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"> </span> -->
+
+    </span>
+  </div>
+
+  <div class="col-md-12">
+    <div ng-view></div>
+  </div>
+
+  <!-- Place this asynchronous JavaScript just before your </body> tag -->
+  <script type="text/javascript">
+            (function() {
+                var po = document.createElement('script');
+                po.type = 'text/javascript';
+                po.async = true;
+                po.src = 'https://apis.google.com/js/client:plusone.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(po, s);
+            })();
+  </script>
+
 </body>
 </html>

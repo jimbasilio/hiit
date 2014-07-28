@@ -4,7 +4,7 @@ var prefix = 'js/angular_components/templates/'
 
 hiit.config(['$routeProvider',
   function($routeProvider) {
-	$routeProvider.
+    $routeProvider.
       when('/main', {
         templateUrl: prefix + 'main.html',
         controller: 'MainController'
@@ -22,7 +22,8 @@ hiit.config(['$routeProvider',
             controller: 'ContactController'
       }).        
       otherwise({
-        redirectTo: '/'
+          templateUrl: prefix + 'main.html',
+          controller: 'MainController'
       });
   }
 ]);
