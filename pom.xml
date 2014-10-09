@@ -1,162 +1,309 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.basilio</groupId>
-    <artifactId>com.basilio.hiit</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+  <groupId>com.basilio</groupId>
+  <artifactId>com.basilio.hiit</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
 
-    <name>com.basilio.hiit</name>
-    <description>HIIT App with cloud storage of timers</description>
+  <name>com.basilio.hiit</name>
+  <description>HIIT App with cloud storage of timers</description>
 
-    <parent>
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>1.1.7.RELEASE</version>
+    <relativePath /> <!-- lookup parent from repository -->
+  </parent>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-rest</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-jdbc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>${commons-lang3.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+    </dependency>
+
+
+    <!-- Spring boot will create a default in-memory DataSource if the driver 
+      is found in the path and no DataSource is configured -->
+    <dependency>
+      <groupId>org.hsqldb</groupId>
+      <artifactId>hsqldb</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+    </dependency>
+  </dependencies>
+
+  <!-- in the m2e profile, insert a default for the build timestamp b/c sts/eclipse 
+    doesn't fill in the build timestamp -->
+  <!-- when building from commandline (i.e. mvn) this fills in correctly. -->
+  <profiles>
+    <profile>
+      <id>m2e</id>
+      <activation>
+        <property>
+          <name>m2e.version</name>
+        </property>
+      </activation>
+      <properties>
+        <maven.build.timestamp>UNKNOWN</maven.build.timestamp>
+      </properties>
+    </profile>
+  </profiles>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <start-class>com.basilio.hiit.Application</start-class>
+    <java.version>1.8</java.version>
+
+    <commons-lang3.version>3.3.2</commons-lang3.version>
+    <minify-maven-plugin.version>1.7.4</minify-maven-plugin.version>
+    <replacer.version>1.5.3</replacer.version>
+    <cachemanifest-maven-plugin.version>1.0.1</cachemanifest-maven-plugin.version>
+
+    <build.timestamp>${maven.build.timestamp}</build.timestamp>
+    <maven.build.timestamp.format>yyyy-MM-dd hh:mma</maven.build.timestamp.format>
+
+    <build.version>${project.version}</build.version>
+
+  </properties>
+
+  <build>
+    <plugins>
+      <!-- Package as an executable jar -->
+      <plugin>
         <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.1.4.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-rest</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-                <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        
-        <!-- Spring boot will create a default in-memory DataSource if the driver 
-            is found in the path and no DataSource is configured -->
-        <dependency>
-            <groupId>org.hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-        </dependency>        
-    </dependencies>
-    
-    <!-- in the m2e profile, insert a default for the build timestamp b/c sts/eclipse doesn't fill in the build timestamp -->
-    <!-- when building from commandline (i.e. mvn) this fills in correctly. -->
-    <profiles>
-        <profile>
-            <id>m2e</id>
-            <activation>
-                <property>  
-                    <name>m2e.version</name>
-                </property>
-            </activation>
-            <properties>
-                <maven.build.timestamp>UNKNOWN</maven.build.timestamp>
-            </properties>
-        </profile>
-    </profiles>    
+      <!-- minify files -->
+      <plugin>
+        <groupId>com.samaxes.maven</groupId>
+        <artifactId>minify-maven-plugin</artifactId>
+        <version>${minify-maven-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>default-minify</id>
+            <!-- When omitted defaults to 'process-resources' -->
+            <phase>prepare-package</phase>
+            <configuration>
+              <skipMinify>true</skipMinify>
+              <verbose>true</verbose>
+              <nosuffix>true</nosuffix>
+              <closureLanguage>ECMASCRIPT5_STRICT</closureLanguage>
+              <closureAngularPass>true</closureAngularPass>
+              <charset>UTF-8</charset>
+              <webappSourceDir>src/main/resources</webappSourceDir>
+              <webappTargetDir>${project.build.directory}/classes</webappTargetDir>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <start-class>com.basilio.hiit.Application</start-class>
-        <java.version>1.8</java.version>
-        
-        <build.timestamp>${maven.build.timestamp}</build.timestamp>
-        <maven.build.timestamp.format>yyyy-MM-dd hh:mma</maven.build.timestamp.format>
+              <cssSourceDir>public/static/angular_components/css/</cssSourceDir>
+              <cssSourceFiles>
+                <cssSourceFile>hiit.css</cssSourceFile>
+              </cssSourceFiles>
+              <cssFinalFile>${project.artifactId}.min.css</cssFinalFile>
 
-        <build.version>${project.version}</build.version>
-        
-    </properties>
+              <jsSourceDir>public/static/angular_components/js/</jsSourceDir>
+              <jsSourceFiles>
+                <jsSourceFile>angular_components/hiit.js</jsSourceFile>
+                <jsSourceFile>angular_components/services/ProgramService.js</jsSourceFile>
+                <jsSourceFile>angular_components/controllers/AboutController.js</jsSourceFile>
+                <jsSourceFile>angular_components/controllers/ContactController.js</jsSourceFile>
+                <jsSourceFile>angular_components/controllers/MainController.js</jsSourceFile>
+                <jsSourceFile>angular_components/controllers/ProgramController.js</jsSourceFile>
+              </jsSourceFiles>
+              <jsFinalFile>${project.artifactId}.min.js</jsFinalFile>
+              <jsEngine>CLOSURE</jsEngine>
 
-    <build>
-        <plugins>
-            <!-- Package as an executable jar -->
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
+            </configuration>
+            <goals>
+              <goal>minify</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
 
-            <!-- run bower install on eclipse build -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <executable>bower</executable>
-                    <arguments>
-                        <argument>install</argument>
-                    </arguments>
-                    <workingDirectory>src/main/resources/static/js</workingDirectory>
-                </configuration>
-            </plugin>
-        </plugins>
-        <pluginManagement>
-            <plugins>
-                <!--This plugin's configuration is used to store Eclipse m2e settings 
-                    only. It has no influence on the Maven build itself. -->
-                <plugin>
-                    <groupId>org.eclipse.m2e</groupId>
-                    <artifactId>lifecycle-mapping</artifactId>
-                    <version>1.0.0</version>
-                    <configuration>
-                        <lifecycleMappingMetadata>
-                            <pluginExecutions>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>
-                                            org.codehaus.mojo
-                                        </groupId>
-                                        <artifactId>
-                                            exec-maven-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            [1.2.1,)
-                                        </versionRange>
-                                        <goals>
-                                            <goal>
-                                                generate-sources
-                                            </goal>
-                                            <goal>exec</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore></ignore>
-                                    </action>
-                                </pluginExecution>
-                            </pluginExecutions>
-                        </lifecycleMappingMetadata>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
+      <!-- replace index.html links to minified code -->
+      <plugin>
+        <groupId>com.google.code.maven-replacer-plugin</groupId>
+        <artifactId>replacer</artifactId>
+        <version>${replacer.version}</version>
+        <executions>
+          <execution>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>replace</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <basedir>${project.build.directory}/classes/public/</basedir>
+          <includes>
+            <include>index.html</include>
+          </includes>
+          <regexFlags>
+            <regexFlag>CASE_INSENSITIVE</regexFlag>
+            <regexFlag>MULTILINE</regexFlag>
+            <regexFlag>DOTALL</regexFlag>
+          </regexFlags>
+          <replacements>
+            <replacement>
+              <token>&lt;!-- JSMINIFY START(.|\s)*?JSMINIFY END --&gt;</token>
+              <value>&lt;script type="text/javascript"
+                src="/static/angular_components/js/${project.artifactId}.min.js"&gt;&lt;/script&gt;</value>
+            </replacement>
+            <replacement>
+              <token>&lt;!-- CSSMINIFY START(.|\s)*?CSSMINIFY END --&gt;</token>
+              <value>&lt;link rel="stylesheet" type="text/css"
+                href="/static/angular_components/css/${project.artifactId}.min.css" /&gt;</value>
+            </replacement>
+          </replacements>
+        </configuration>
+      </plugin>
+
+      <!-- build appcache.manifest -->
+      <plugin>
+        <groupId>com.github.cameroncan</groupId>
+        <artifactId>cachemanifest-maven-plugin</artifactId>
+        <version>${cachemanifest-maven-plugin.version}</version>
+        <configuration>
+          <!-- <manifestVersion>${project.artifactId}.${maven.build.timestamp}</manifestVersion> -->
+          <manifestVersion>${project.artifactId}</manifestVersion>
+          <inputDirectory>${project.build.directory}/classes/public/</inputDirectory>
+          <outputManifestFile>${project.build.directory}/classes/public/manifest.appcache</outputManifestFile>
+          <excludes>
+            <exclude>WEB-INF/**</exclude>
+            <exclude>**/*.json</exclude>
+            <exclude>**/.*</exclude>
+            <exclude>**/*.gzip</exclude>
+            <exclude>**/common/**</exclude>
+            <exclude>**/example/**</exclude>
+            <exclude>**/src/**</exclude>
+            <exclude>**/test/**</exclude>
+            <exclude>**/demo/**</exclude>
+            <exclude>**/grunt/**</exclude>
+            <exclude>**/less/**</exclude>
+            <exclude>**/lib/**</exclude>
+            <exclude>**/benchmarks/**</exclude>
+            <exclude>**/themes/**</exclude>
+          </excludes>
+          <!-- Add additional manual entries -->
+          <!-- <additionals> -->
+          <!-- <additional>foo.com?isBar=true</additional> -->
+          <!-- </additionals> -->
+          <networkResources>
+            <!-- whitelist all non-cached references to allow Web services 
+              access -->
+            <networkResource>*</networkResource>
+          </networkResources>
+          <fallback>/index.html /index.html</fallback>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>generate-manifest</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- run bower install on eclipse build -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <executable>bower</executable>
+          <arguments>
+            <argument>install</argument>
+          </arguments>
+          <workingDirectory>src/main/bower</workingDirectory>
+        </configuration>
+      </plugin>
+    </plugins>
+    <pluginManagement>
+      <plugins>
+        <!--This plugin's configuration is used to store Eclipse m2e settings 
+          only. It has no influence on the Maven build itself. -->
+        <plugin>
+          <groupId>org.eclipse.m2e</groupId>
+          <artifactId>lifecycle-mapping</artifactId>
+          <version>1.0.0</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>
+                      org.codehaus.mojo
+                    </groupId>
+                    <artifactId>
+                      exec-maven-plugin
+                    </artifactId>
+                    <versionRange>
+                      [1.2.1,)
+                    </versionRange>
+                    <goals>
+                      <goal>
+                        generate-sources
+                      </goal>
+                      <goal>exec</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <execute></execute>
+                  </action>
+                </pluginExecution>
+              </pluginExecutions>
+            </lifecycleMappingMetadata>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 
 </project>

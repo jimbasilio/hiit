@@ -15,14 +15,12 @@ public class ProgramServiceTest extends BaseIntegrationTest {
     @Test
     public void testStore() {
         ProgramDTO toSave = new ProgramDTO();
-        toSave.setDurationInSeconds(400);
+        toSave.setName("test program");
         toSave.setIterations(10);
 
         Long newId = sut.store(toSave);
 
         ProgramDTO savedDTO = sut.getById(newId);
-        Assert.assertEquals(toSave.getDurationInSeconds(),
-                savedDTO.getDurationInSeconds());
         Assert.assertEquals(toSave.getIterations(), savedDTO.getIterations());
     }
 }

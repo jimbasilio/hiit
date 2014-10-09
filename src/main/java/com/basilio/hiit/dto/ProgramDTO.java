@@ -1,37 +1,29 @@
 package com.basilio.hiit.dto;
 
+import java.time.LocalDate;
+
 import com.basilio.hiit.entity.ProgramEntity;
 
 public class ProgramDTO extends BaseDTO {
-
-    private long durationInSeconds = 0;
     private int iterations = 0;
+    private String name;
+    private LocalDate creationDate;
+
+    // private UserEntity createdBy;
 
     public ProgramDTO() {
+        creationDate = LocalDate.now();
     }
 
     public ProgramDTO(ProgramEntity entity) {
         if (entity != null) {
             this.id = entity.getId();
             this.version = entity.getVersion();
-            this.durationInSeconds = entity.getDurationInSeconds();
             this.iterations = entity.getIterations();
+            this.creationDate = entity.getCreationDate();
+            this.name = entity.getName();
+            // this.setCreatedBy(entity.getCreatedBy());
         }
-    }
-
-    /**
-     * @return the durationInSeconds
-     */
-    public long getDurationInSeconds() {
-        return durationInSeconds;
-    }
-
-    /**
-     * @param durationInSeconds
-     *            the durationInSeconds to set
-     */
-    public void setDurationInSeconds(long durationInSeconds) {
-        this.durationInSeconds = durationInSeconds;
     }
 
     /**
@@ -48,5 +40,29 @@ public class ProgramDTO extends BaseDTO {
     public void setIterations(int iterations) {
         this.iterations = iterations;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public LocalDate getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
+    }
+    //
+    // public UserEntity getCreatedBy() {
+    // return createdBy;
+    // }
+    //
+    // public void setCreatedBy(UserEntity createdBy) {
+    // this.createdBy = createdBy;
+    // }
 
 }

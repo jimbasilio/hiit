@@ -1,13 +1,18 @@
 package com.basilio.hiit.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.basilio.hiit.dto.ProgramDTO;
+import com.basilio.hiit.dto.display.ProgramGridDTO;
 import com.basilio.hiit.service.ProgramService;
 
 @RestController
@@ -15,6 +20,14 @@ import com.basilio.hiit.service.ProgramService;
 public class ProgramController {
     @Autowired
     private ProgramService programService;
+
+    @RequestMapping(value = "/getAllForUser", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<ProgramGridDTO> getById() {
+        Authentication auth = SecurityContextHolder.getContext()
+                .getAuthentication();
+
+        return programService.getAllByUserId(auth.getName());
+    }
 
     @RequestMapping(value = "/getById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ProgramDTO getById(

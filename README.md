@@ -6,7 +6,7 @@ The UI will be HTML5 and have offline capabilities to be able to run without con
 
 MUST PASS ARGUMENT TO JVM TO SELECT ACTIVE PROFILE:
 user@machine:~/your/projects$ mvn clean package
-user@machine:~/your/projects$ java -Dspring.profiles.active=dev -jar target/springboot-0.0.1-SNAPSHOT.jar
+user@machine:~/your/projects$ java -Dspring.profiles.active=hsqldb -jar target/com.basilio.hiit-0.0.1-SNAPSHOT.jar
 
 
 Todo:

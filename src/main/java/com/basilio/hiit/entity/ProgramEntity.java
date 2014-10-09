@@ -1,5 +1,7 @@
 package com.basilio.hiit.entity;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,10 +21,17 @@ public class ProgramEntity {
     private Long version;
 
     @Column(nullable = false)
-    private long durationInSeconds;
+    private int iterations;
 
     @Column(nullable = false)
-    private int iterations;
+    private String name;
+
+    @Column(nullable = false)
+    private LocalDate creationDate;
+
+    // @OneToOne(cascade = CascadeType.ALL, optional = false, fetch =
+    // FetchType.LAZY)
+    // private UserEntity createdBy;
 
     /**
      * @return the id
@@ -55,21 +64,6 @@ public class ProgramEntity {
     }
 
     /**
-     * @return the durationInSeconds
-     */
-    public long getDurationInSeconds() {
-        return durationInSeconds;
-    }
-
-    /**
-     * @param durationInSeconds
-     *            the durationInSeconds to set
-     */
-    public void setDurationInSeconds(long durationInSeconds) {
-        this.durationInSeconds = durationInSeconds;
-    }
-
-    /**
      * @return the iterations
      */
     public int getIterations() {
@@ -83,4 +77,28 @@ public class ProgramEntity {
     public void setIterations(int iterations) {
         this.iterations = iterations;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public LocalDate getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    // public UserEntity getCreatedBy() {
+    // return createdBy;
+    // }
+    //
+    // public void setCreatedBy(UserEntity createdBy) {
+    // this.createdBy = createdBy;
+    // }
 }
