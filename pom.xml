@@ -141,12 +141,13 @@
 
               <jsSourceDir>public/static/angular_components/js/</jsSourceDir>
               <jsSourceFiles>
-                <jsSourceFile>angular_components/hiit.js</jsSourceFile>
-                <jsSourceFile>angular_components/services/ProgramService.js</jsSourceFile>
-                <jsSourceFile>angular_components/controllers/AboutController.js</jsSourceFile>
-                <jsSourceFile>angular_components/controllers/ContactController.js</jsSourceFile>
-                <jsSourceFile>angular_components/controllers/MainController.js</jsSourceFile>
-                <jsSourceFile>angular_components/controllers/ProgramController.js</jsSourceFile>
+                <jsSourceFile>hiit.js</jsSourceFile>
+                <jsSourceFile>services/ProgramService.js</jsSourceFile>
+                <jsSourceFile>controllers/AboutController.js</jsSourceFile>
+                <jsSourceFile>controllers/ContactController.js</jsSourceFile>
+                <jsSourceFile>controllers/MainController.js</jsSourceFile>
+                <jsSourceFile>controllers/ProgramController.js</jsSourceFile>
+                <jsSourceFile>webworkers/appCacheWorker.js</jsSourceFile>
               </jsSourceFiles>
               <jsFinalFile>${project.artifactId}.min.js</jsFinalFile>
               <jsEngine>CLOSURE</jsEngine>
