@@ -1,8 +1,8 @@
-var hiitApp = angular.module('hiit', [ 'ngRoute' ]);
+var hiit = angular.module('hiit', [ 'ngRoute' ]);
 
 var prefix = 'static/angular_components/js/templates/'
 
-hiitApp.config([ '$routeProvider', function($routeProvider) {
+hiit.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/main', {
 		templateUrl : prefix + 'main.html',
 		controller : 'MainController'

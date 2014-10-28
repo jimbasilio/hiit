@@ -2,28 +2,13 @@ package com.basilio.hiit.dto;
 
 import java.time.LocalDate;
 
-import com.basilio.hiit.entity.ProgramEntity;
-
 public class ProgramDTO extends BaseDTO {
     private int iterations = 0;
     private String name;
     private LocalDate creationDate;
 
-    // private UserEntity createdBy;
-
     public ProgramDTO() {
         creationDate = LocalDate.now();
-    }
-
-    public ProgramDTO(ProgramEntity entity) {
-        if (entity != null) {
-            this.id = entity.getId();
-            this.version = entity.getVersion();
-            this.iterations = entity.getIterations();
-            this.creationDate = entity.getCreationDate();
-            this.name = entity.getName();
-            // this.setCreatedBy(entity.getCreatedBy());
-        }
     }
 
     /**

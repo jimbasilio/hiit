@@ -58,6 +58,7 @@ public class Application implements EmbeddedServletContainerCustomizer {
                         // for more settings for tomcat look at the docs:
                         // http://tomcat.apache.org/tomcat-7.0-doc/config/http.html
 
+                        @SuppressWarnings("rawtypes")
                         AbstractHttp11Protocol httpProtocol = (AbstractHttp11Protocol) connector
                                 .getProtocolHandler();
                         httpProtocol.setCompression("on");

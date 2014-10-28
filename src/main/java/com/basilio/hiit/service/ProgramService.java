@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.basilio.hiit.dto.ProgramDTO;
 import com.basilio.hiit.dto.display.ProgramGridDTO;
 import com.basilio.hiit.entity.ProgramEntity;
+import com.basilio.hiit.mapper.ProgramEntityMapper;
 import com.basilio.hiit.repository.ProgramRepository;
 
 @Service
@@ -17,9 +18,12 @@ public class ProgramService {
     @Autowired
     private ProgramRepository programRepo;
 
+    @Autowired
+    private ProgramEntityMapper programMapper;
+
     @Transactional(readOnly = true)
     public ProgramDTO getById(Long id) {
-        return new ProgramDTO(programRepo.findOne(id));
+        return programMapper.toDTO(programRepo.findOne(id));
     }
 
     @Transactional(readOnly = true)
@@ -31,18 +35,15 @@ public class ProgramService {
     }
 
     @Transactional(readOnly = false)
-    public Long store(ProgramDTO toStore) {
+    public Long store(ProgramDTO dto) {
         ProgramEntity entity = null;
-        if (toStore.isValidId()) {
-            entity = programRepo.findOne(toStore.getId());
+        if (dto.isValidId()) {
+            entity = programRepo.findOne(dto.getId());
         } else {
             entity = new ProgramEntity();
         }
 
-        entity.setIterations(toStore.getIterations());
-        entity.setVersion(toStore.getVersion());
-        entity.setCreationDate(toStore.getCreationDate());
-        entity.setName(toStore.getName());
+        entity = programMapper.toEntity(entity, dto);
 
         ProgramEntity stored = programRepo.save(entity);
 

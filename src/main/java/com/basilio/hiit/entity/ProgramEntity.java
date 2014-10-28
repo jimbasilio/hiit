@@ -4,22 +4,13 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Version;
+import com.basilio.hiit.entity.UserEntity;
+import javax.persistence.ManyToOne;
 
 @Table(name = "Program")
 @Entity
-public class ProgramEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @Version
-    private Long version;
-
+public class ProgramEntity extends BaseEntity {
     @Column(nullable = false)
     private int iterations;
 
@@ -29,39 +20,8 @@ public class ProgramEntity {
     @Column(nullable = false)
     private LocalDate creationDate;
 
-    // @OneToOne(cascade = CascadeType.ALL, optional = false, fetch =
-    // FetchType.LAZY)
-    // private UserEntity createdBy;
-
-    /**
-     * @return the id
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * @param id
-     *            the id to set
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    /**
-     * @return the version
-     */
-    public Long getVersion() {
-        return version;
-    }
-
-    /**
-     * @param version
-     *            the version to set
-     */
-    public void setVersion(Long version) {
-        this.version = version;
-    }
+    @ManyToOne
+    private UserEntity userEntity;
 
     /**
      * @return the iterations
@@ -92,6 +52,14 @@ public class ProgramEntity {
 
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity param) {
+        this.userEntity = param;
     }
 
     // public UserEntity getCreatedBy() {

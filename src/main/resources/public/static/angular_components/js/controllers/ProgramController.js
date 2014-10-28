@@ -1,5 +1,7 @@
 hiit.controller("ProgramController", ["$scope", "$q", function($scope, $q) {
-  $scope.page.programs = {};
+  $scope.page = {
+		  programs : {}
+  };
   
   var fetchPrograms = function() {
 	  
