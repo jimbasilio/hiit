@@ -8,9 +8,10 @@
   "description": "HIIT bower resources",
   "license": "MIT",
   "dependencies": {
-    "angular": "1.2.*",
-    "angular-route": "1.2.*",
+    "angular": "1.3.*",
+    "angular-route": "1.3.*",
     "bootstrap": "3.*",
-    "font-awesome": "latest"
+    "font-awesome": "latest",
+    "satellizer": "latest"
   }
 }

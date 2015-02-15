@@ -1,8 +1,8 @@
-var hiit = angular.module('hiit', [ 'ngRoute' ]);
+var hiit = angular.module('hiit', [ 'ngRoute', 'satellizer' ]);
 
 var prefix = 'static/angular_components/js/templates/'
 
-hiit.config([ '$routeProvider', function($routeProvider) {
+hiit.config([ '$routeProvider', '$authProvider', function($routeProvider, $authProvider) {
 	$routeProvider.when('/main', {
 		templateUrl : prefix + 'main.html',
 		controller : 'MainController'
@@ -19,4 +19,9 @@ hiit.config([ '$routeProvider', function($routeProvider) {
 		templateUrl : prefix + 'main.html',
 		controller : 'MainController'
 	});
-} ]);
+	
+	$authProvider.google({
+		clientId: '61500060365-alek9hn53hlc158pbaiiuf2jaanckb9d.apps.googleusercontent.com',
+		scope: ['profile']//'login', 'drive.file']
+	});
+}]);

@@ -1,5 +1,9 @@
-hiit.controller("MainController", [ "$scope", function($scope) {
+hiit.controller("MainController", [ "$scope", "$auth", function($scope, $auth) {
 	$scope.message = "you made it!";
+	
+	$scope.authenticate = function(provider) {
+		$auth.authenticate(provider);
+	};
 
 	var worker = new Worker('static/angular_components/js/webworkers/appCacheWorker.js');
 	var appCache = window.applicationCache;
