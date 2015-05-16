@@ -16,7 +16,7 @@ Todo:
 Done:
 * MVC JSON RPC skeleton
 * have multiple profiles for 2 different database providers (HSQL and H2)
-    * works now.  can set profile at will in application.properties to use h2db or hsqldb independant of dev/prod setting.
+    * works now.  can set profile at will in application.properties to use h2db or hsqldb independent of dev/prod setting.
 * simple angular shell front-end.. works but no frills yet!
 
 

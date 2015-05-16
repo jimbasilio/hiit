@@ -22,6 +22,6 @@ hiit.config([ '$routeProvider', '$authProvider', function($routeProvider, $authP
 	
 	$authProvider.google({
 		clientId: '61500060365-alek9hn53hlc158pbaiiuf2jaanckb9d.apps.googleusercontent.com',
-		scope: ['profile']//'login', 'drive.file']
+		scope: ['profile', 'email', 'https://www.googleapis.com/auth/drive.appdata']
 	});
 }]);
