@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- CSSMINIFY START -->
 <link rel="stylesheet" type="text/css" href="static/bower_components/bootstrap/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="static/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" />
 <link rel="stylesheet" type="text/css" href="static/bower_components/font-awesome/css/font-awesome.min.css" />
+
+<!-- CSSMINIFY START -->
 <link rel="stylesheet" type="text/css" href="static/angular_components/css/hiit.css" />
 <!-- CSSMINIFY END -->
 
 
 <script src="static/bower_components/angular/angular.js" ></script>
-<script src="static/bower_components/angular-route/angular-route.min.js" ></script>
-<script src="static/bower_components/jquery/dist/jquery.min.js" ></script>
-<script src="static/bower_components/bootstrap/dist/js/bootstrap.min.js" ></script>
-<script src="static/bower_components/satellizer/satellizer.min.js" ></script>
+<script src="static/bower_components/angular-route/angular-route.js" ></script>
+<script src="static/bower_components/jquery/dist/jquery.js" ></script>
+<script src="static/bower_components/bootstrap/dist/js/bootstrap.js" ></script>
+<script src="static/bower_components/satellizer/satellizer.js" ></script>
 
 <!-- JSMINIFY START -->
 <script src="static/angular_components/js/hiit.js" ></script>
@@ -22,7 +23,6 @@
 <script src="static/angular_components/js/controllers/ContactController.js" ></script>
 <script src="static/angular_components/js/controllers/MainController.js" ></script>
 <script src="static/angular_components/js/controllers/ProgramController.js" ></script>
-<script src="static/angular_components/js/webworkers/appCacheWorker.js" ></script>
 <!-- JSMINIFY END -->
 
 <meta charset="UTF-8">
@@ -48,7 +48,7 @@
     </nav>
   </header>
 
-  <button ng-click="authenticate('google')">Sign in with Google</button>
+<!--   <button ng-click="authenticate('google')">Sign in with Google</button> -->
 
   <div class="col-md-12">
     <div data-ng-view></div>

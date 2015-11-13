@@ -14,8 +14,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.2.3.RELEASE</version>
-    <relativePath /> <!-- lookup parent from repository -->
+    <version>1.3.0.Rc1</version>
   </parent>
 
   <dependencies>
@@ -59,7 +58,7 @@
     </dependency>
 
 
-    <!-- Spring boot will create a default in-memory DataSource if the driver 
+    <!-- Spring boot will create a default in-memory DataSource if the driver
       is found in the path and no DataSource is configured -->
     <dependency>
       <groupId>org.hsqldb</groupId>
@@ -71,7 +70,7 @@
     </dependency>
   </dependencies>
 
-  <!-- in the m2e profile, insert a default for the build timestamp b/c sts/eclipse 
+  <!-- in the m2e profile, insert a default for the build timestamp b/c sts/eclipse
     doesn't fill in the build timestamp -->
   <!-- when building from commandline (i.e. mvn) this fills in correctly. -->
   <profiles>
@@ -104,13 +103,33 @@
     <build.version>${project.version}</build.version>
 
   </properties>
-
+  <repositories>
+    <repository>
+        <id>spring-milestones</id>
+        <name>Spring Milestones</name>
+        <url>http://repo.spring.io/milestone</url>
+        </repository><repository>
+        <id>spring-milestones-libs</id>
+        <name>Spring Lib Milestones</name>
+        <url>http://repo.spring.io/libs-milestone/</url>
+    </repository>
+  </repositories>
   <build>
     <plugins>
       <!-- Package as an executable jar -->
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+<!--         BEGIN REMOVE ONCE SPRING BOOT RELEASED -->
+        <version>1.2.6.RELEASE</version>
+<!--         END REMOVE ONCE SPRING BOOT RELEASED -->
+        <executions>
+          <execution>
+          <goals>
+            <goal>repackage</goal>
+          </goals>
+          </execution>
+        </executions>
       </plugin>
 
       <!-- minify files -->
@@ -137,7 +156,7 @@
               <cssSourceFiles>
                 <cssSourceFile>hiit.css</cssSourceFile>
               </cssSourceFiles>
-              <cssFinalFile>${project.artifactId}.min.css</cssFinalFile>
+              <cssFinalFile>${project.artifactId}.${maven.build.timestamp}.${build.version}.min.css</cssFinalFile>
 
               <jsSourceDir>public/static/angular_components/js/</jsSourceDir>
               <jsSourceFiles>
@@ -147,9 +166,8 @@
                 <jsSourceFile>controllers/ContactController.js</jsSourceFile>
                 <jsSourceFile>controllers/MainController.js</jsSourceFile>
                 <jsSourceFile>controllers/ProgramController.js</jsSourceFile>
-                <jsSourceFile>webworkers/appCacheWorker.js</jsSourceFile>
               </jsSourceFiles>
-              <jsFinalFile>${project.artifactId}.min.js</jsFinalFile>
+              <jsFinalFile>${project.artifactId}.${maven.build.timestamp}.${build.version}.min.js</jsFinalFile>
               <jsEngine>CLOSURE</jsEngine>
 
             </configuration>
@@ -187,62 +205,15 @@
             <replacement>
               <token>&lt;!-- JSMINIFY START(.|\s)*?JSMINIFY END --&gt;</token>
               <value>&lt;script type="text/javascript"
-                src="/static/angular_components/js/${project.artifactId}.min.js"&gt;&lt;/script&gt;</value>
+                src="/static/angular_components/js/${project.artifactId}.${maven.build.timestamp}.${build.version}.min.js"&gt;&lt;/script&gt;</value>
             </replacement>
             <replacement>
               <token>&lt;!-- CSSMINIFY START(.|\s)*?CSSMINIFY END --&gt;</token>
               <value>&lt;link rel="stylesheet" type="text/css"
-                href="/static/angular_components/css/${project.artifactId}.min.css" /&gt;</value>
+                href="/static/angular_components/css/${project.artifactId}.${maven.build.timestamp}.${build.version}.min.css" /&gt;</value>
             </replacement>
           </replacements>
         </configuration>
-      </plugin>
-
-      <!-- build appcache.manifest -->
-      <plugin>
-        <groupId>com.github.cameroncan</groupId>
-        <artifactId>cachemanifest-maven-plugin</artifactId>
-        <version>${cachemanifest-maven-plugin.version}</version>
-        <configuration>
-          <!-- <manifestVersion>${project.artifactId}.${maven.build.timestamp}</manifestVersion> -->
-          <manifestVersion>${project.artifactId}</manifestVersion>
-          <inputDirectory>${project.build.directory}/classes/public/</inputDirectory>
-          <outputManifestFile>${project.build.directory}/classes/public/manifest.appcache</outputManifestFile>
-          <excludes>
-            <exclude>WEB-INF/**</exclude>
-            <exclude>**/*.json</exclude>
-            <exclude>**/.*</exclude>
-            <exclude>**/*.gzip</exclude>
-            <exclude>**/common/**</exclude>
-            <exclude>**/example/**</exclude>
-            <exclude>**/src/**</exclude>
-            <exclude>**/test/**</exclude>
-            <exclude>**/demo/**</exclude>
-            <exclude>**/grunt/**</exclude>
-            <exclude>**/less/**</exclude>
-            <exclude>**/lib/**</exclude>
-            <exclude>**/benchmarks/**</exclude>
-            <exclude>**/themes/**</exclude>
-          </excludes>
-          <!-- Add additional manual entries -->
-          <!-- <additionals> -->
-          <!-- <additional>foo.com?isBar=true</additional> -->
-          <!-- </additionals> -->
-          <networkResources>
-            <!-- whitelist all non-cached references to allow Web services 
-              access -->
-            <networkResource>*</networkResource>
-          </networkResources>
-          <fallback>/index.html /index.html</fallback>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>prepare-package</phase>
-            <goals>
-              <goal>generate-manifest</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
 
       <!-- run bower install on eclipse build -->
@@ -268,7 +239,7 @@
     </plugins>
     <pluginManagement>
       <plugins>
-        <!--This plugin's configuration is used to store Eclipse m2e settings 
+        <!--This plugin's configuration is used to store Eclipse m2e settings
           only. It has no influence on the Maven build itself. -->
         <plugin>
           <groupId>org.eclipse.m2e</groupId>
