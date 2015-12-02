@@ -1,7 +1,8 @@
 package com.basilio.hiit.service;
 
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,13 +24,30 @@ public class ProgramService {
 
     @Transactional(readOnly = true)
     public ProgramDTO getById(Long id) {
-        return programMapper.toDTO(programRepo.findOne(id));
+        ProgramDTO dummyResult = new ProgramDTO();
+        dummyResult.setCreationDate(LocalDate.now());
+        dummyResult.setId(99l);
+        dummyResult.setIterations(5);
+        dummyResult.setName("burpees");
+        dummyResult.setVersion(1l);
+
+        return dummyResult;
+        // return programMapper.toDTO(programRepo.findOne(id));
     }
 
     @Transactional(readOnly = true)
     public List<ProgramGridDTO> getAllByUserId(String user) {
-        return programRepo.findByUserName(user).stream()
-                .map(ProgramGridDTO::new).collect(Collectors.toList());
+        ProgramGridDTO dummyResult1 = new ProgramGridDTO();
+        dummyResult1.setCreationDate(LocalDate.now());
+        dummyResult1.setName("mountain climbers");
+
+        ProgramGridDTO dummyResult2 = new ProgramGridDTO();
+        dummyResult2.setCreationDate(LocalDate.now());
+        dummyResult2.setName("burpees");
+
+        return Arrays.asList(dummyResult1, dummyResult2);
+        // return programRepo.findByUserName(user).stream()
+        // .map(ProgramGridDTO::new).collect(Collectors.toList());
         // .collect(Collectors.toList());
         // return new ProgramDTO(programRepo.findByUserName(user));
     }

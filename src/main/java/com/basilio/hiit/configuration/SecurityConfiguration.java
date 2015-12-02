@@ -19,9 +19,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         // .loginPage("/login").permitAll().and().logout()
         // .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
         // .logoutSuccessUrl("/login").permitAll();
-        http.authorizeRequests()
-                .antMatchers("/manifest.appcache", "/about", "/", "/static/**")
-                .permitAll().anyRequest().authenticated();
+        // http.authorizeRequests()
+        // .antMatchers("/manifest.appcache", "/about", "/", "/static/**")
+        // .permitAll().anyRequest().authenticated();
     }
 
     @Override

@@ -6,7 +6,12 @@ import com.basilio.hiit.entity.ProgramEntity;
 
 public class ProgramGridDTO {
     private String name;
+
     private LocalDate creationDate;
+
+    public ProgramGridDTO() {
+
+    }
 
     public ProgramGridDTO(ProgramEntity entity) {
         this.name = entity.getName();
