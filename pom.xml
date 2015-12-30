@@ -14,7 +14,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.3.0.Rc1</version>
+    <version>1.3.1.RELEASE</version>
   </parent>
 
   <dependencies>
@@ -74,8 +74,6 @@
     </dependency>
   </dependencies>
 
-  <!-- in the m2e profile, insert a default for the build timestamp b/c sts/eclipse
-    doesn't fill in the build timestamp -->
   <!-- when building from commandline (i.e. mvn) this fills in correctly. -->
   <profiles>
     <profile>
@@ -85,9 +83,6 @@
           <name>m2e.version</name>
         </property>
       </activation>
-      <properties>
-        <maven.build.timestamp>UNKNOWN</maven.build.timestamp>
-      </properties>
     </profile>
   </profiles>
 
@@ -106,27 +101,37 @@
 
     <build.version>${project.version}</build.version>
 
+    <docker.image.prefix>jimbasilio</docker.image.prefix>
+
+    <!-- in the m2e profile, insert a default for the build timestamp b/c sts/eclipse
+    doesn't fill in the build timestamp -->
+    <maven.build.timestamp>UNKNOWN</maven.build.timestamp>
   </properties>
-  <repositories>
-    <repository>
-        <id>spring-milestones</id>
-        <name>Spring Milestones</name>
-        <url>http://repo.spring.io/milestone</url>
-        </repository><repository>
-        <id>spring-milestones-libs</id>
-        <name>Spring Lib Milestones</name>
-        <url>http://repo.spring.io/libs-milestone/</url>
-    </repository>
-  </repositories>
+
   <build>
     <plugins>
+      <!-- Package as a docker image -->
+      <plugin>
+          <groupId>com.spotify</groupId>
+          <artifactId>docker-maven-plugin</artifactId>
+          <version>0.2.3</version>
+          <configuration>
+              <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+              <dockerDirectory>src/main/docker</dockerDirectory>
+              <resources>
+                  <resource>
+                      <targetPath>/</targetPath>
+                      <directory>${project.build.directory}</directory>
+                      <include>${project.build.finalName}.jar</include>
+                  </resource>
+              </resources>
+          </configuration>
+      </plugin>
+
       <!-- Package as an executable jar -->
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-<!--         BEGIN REMOVE ONCE SPRING BOOT RELEASED -->
-        <version>1.2.6.RELEASE</version>
-<!--         END REMOVE ONCE SPRING BOOT RELEASED -->
         <executions>
           <execution>
           <goals>

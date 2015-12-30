@@ -5,3 +5,4 @@ bin/*
 npm-debug.log
 bower_components
 /target/
+nohup.out
